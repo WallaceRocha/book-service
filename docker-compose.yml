@@ -1,0 +1,38 @@
+services:
+
+  book-service:
+      image: book-service
+      build: .
+      ports:
+      - "8080:8080"
+      environment:
+        - SPRING_PROFILES_ACTIVE=docker
+        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/bookdb
+        - SPRING_DATASOURCE_USERNAME=root
+        - SPRING_DATASOURCE_PASSWORD=root
+      depends_on:
+        - mysql
+      networks:
+        - services-network
+      restart: unless-stopped
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bookdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - services-network
+
+volumes:
+  mysql_data:
+
+networks:
+  services-network:
+    driver: bridge
