@@ -9,4 +9,17 @@ jobs:
         steps:
             - name: Code Checkout
               uses: actions/checkout@v4
+        
+            # We don't need this anymore. Building on docker
+            # - name: Setup Java JDK
+            #   uses: actions/setup-java@v4.7.0
+            #   with:
+            #     distribution: 'coreto' #amazon
+            #     version: 17
+            - name: Login to Docker HUB
+              run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_TOKEN }}
+            - name: Build Docker Image
+              run: docker build -t ${{ secrets.DOCKER_HUB_REPO }} .
+            - name: Push image to Docker Hub
+              run: docker push ${{ secrets.DOCKER_HUB_REPO }}:latest
 
