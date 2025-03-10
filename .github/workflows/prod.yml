@@ -10,7 +10,7 @@ jobs:
             - name: Code Checkout
               uses: actions/checkout@v4
         
-            # We don't need this anymore. Building on docker
+            # We don't need this anymore. Building on docker...
             # - name: Setup Java JDK
             #   uses: actions/setup-java@v4.7.0
             #   with:
@@ -23,3 +23,17 @@ jobs:
             - name: Push image to Docker Hub
               run: docker push ${{ secrets.DOCKER_HUB_REPO }}:latest
 
+    deploy:
+        needs: build
+        runs-on: self-hosted
+        steps:
+            - name: Code Checkout # another checkout as a guarantee 
+              uses: actions/checkout@v4
+            - name: Pull latest image
+              run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+            - name: Stop containers
+              run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
+            - name: Start services on docker
+              run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+            - name: Prune unused images # always important to clean useless images
+              run: docker image prune -f

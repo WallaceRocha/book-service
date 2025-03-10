@@ -5,7 +5,7 @@ import dev.stonehold.book_service.domain.model.Book;
 import java.util.List;
 
 public interface BookRepository {
-    void save(Book book);
+    Book save(Book book);
     Book findById(Long id);
     List<Book> findAll();
 }

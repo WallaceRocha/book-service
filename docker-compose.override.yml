@@ -1,0 +1,5 @@
+services:
+  book-service:
+    build:
+      context: .
+      dockerfile: Dockerfile

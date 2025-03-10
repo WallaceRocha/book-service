@@ -1,0 +1,3 @@
+services:
+  book-service:
+    image: ${DOCKER_HUB_REPO}:latest

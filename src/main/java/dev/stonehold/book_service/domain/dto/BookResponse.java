@@ -7,12 +7,13 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 @Getter
-public class BookRequest {
+@AllArgsConstructor
+public class BookResponse {
     private String title;
     private String publisher;
     private LocalDate startDate;
 
-    public Book toDomain() {
-        return new Book(title, publisher, startDate);
+    public static BookResponse fromDomain(Book book) {
+        return new BookResponse(book.getTitle(), book.getPublisher(), book.getStartDate());
     }
 }

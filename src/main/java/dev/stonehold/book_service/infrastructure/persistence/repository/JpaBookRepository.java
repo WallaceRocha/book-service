@@ -4,6 +4,7 @@ import dev.stonehold.book_service.domain.model.Book;
 import dev.stonehold.book_service.domain.repository.BookRepository;
 import dev.stonehold.book_service.infrastructure.exception.NotFoundException;
 import dev.stonehold.book_service.infrastructure.mapper.BookMapper;
+import dev.stonehold.book_service.infrastructure.persistence.entity.BookEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,8 +20,9 @@ public class JpaBookRepository implements BookRepository {
     }
 
     @Override
-    public void save(Book book) {
-        repository.save(mapper.toEntity(book));
+    public Book save(Book book) {
+        BookEntity bookCreated = repository.save(mapper.toEntity(book));
+        return mapper.toDomain(bookCreated);
     }
 
     @Override
