@@ -30,10 +30,13 @@ jobs:
     deploy:
         needs: build
         runs-on: self-hosted
+        env:
+          DOCKER_HUB_REPO: ${{ secrets.DOCKER_HUB_REPO }}
         steps:
             - name: Code Checkout # another checkout as a guarantee
               uses: actions/checkout@v4
             - name: Pull latest image
+
               run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
             - name: Stop containers
               run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
