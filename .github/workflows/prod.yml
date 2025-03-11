@@ -40,7 +40,7 @@ jobs:
             - name: Pull latest image
               run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
             - name: Stop containers
-              run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
+              run: docker-compose down
             - name: Start services on docker
               run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
             - name: Prune unused images # always important to clean useless images
