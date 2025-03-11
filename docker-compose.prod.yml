@@ -1,3 +1,3 @@
 services:
   book-service:
-    image: ${DOCKER_HUB_REPO}:latest
+    image: wallacedanrl/book-study-demo:latest

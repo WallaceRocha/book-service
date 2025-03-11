@@ -29,8 +29,6 @@ jobs:
     deploy:
         needs: build
         runs-on: self-hosted
-        env:
-          DOCKER_HUB_REPO: ${{ secrets.DOCKER_HUB_REPO }}
         steps:
             - name: Code Checkout # another checkout as a guarantee
               uses: actions/checkout@v4
