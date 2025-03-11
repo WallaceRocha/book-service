@@ -31,8 +31,6 @@ jobs:
         needs: build
         runs-on: self-hosted
         steps:
-            - name: Code Checkout # another checkout as a guarantee 
-              uses: actions/checkout@v4
             - name: Pull latest image
               run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
             - name: Stop containers
